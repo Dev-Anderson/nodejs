@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API - teste</title>
+</head>
+<body>
+    <center>
+        <h1>LISTA DE ALUNOS</h1>
+    </center>
+
+    <ul id="alunos">
+    </ul>
+    <ul id="idade"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+    <script>
+        axios.get('http://localhost:3000/api/v1/alunos')
+        .then(response => criarListaDinamica(response.data))
+        .catch(error => console.log(error))
+
+        const criarListaDinamica = ( alunos ) =>  {
+            const ulAlunos = document.getElementById('alunos')
+            alunos.map(aluno => {
+                const listaAluno = document.createElement('li')
+                listaAluno.innerHTML = `Nome: ${aluno.nome} Idade: ${aluno.idade}`
+                ulAlunos.appendChild(listaAluno)
+
+                //segunda forma de adicionar um novo campo
+                const listaIdadeAluno = document.createElement('li')
+                listaIdadeAluno.innerHTML = `Idade: ${aluno.idade}`
+                ulAlunos.appendChild(listaIdadeAluno)
+            })
+        }
+    </script>
+
+</body>
+</html>
